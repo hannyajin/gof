@@ -107,13 +107,15 @@
 
         var lives = true;
         if (true) { // is alive
-          if (neighbours < 4 || neighbours > 6) {
+          if (neighbours < 2 || neighbours > 3) {
             lives = false;
           }
         }
         if (!cell) {
           if (neighbours == 3)
             lives = true;
+          else
+            lives = false;
         }
         board[i][j] = lives;
       }
@@ -121,8 +123,8 @@
   };
 
   var ticks = 0;
-  var limit = 15;
-  var fps = 15;
+  var limit = 300;
+  var fps = 30;
   var msPerFrame = 1000 / fps;
   function update() {
     stats.begin();
