@@ -41,13 +41,43 @@
 
   var board = [];
 
+  var resetCounter = 0;
+  var resetLimit = 6;
   function reset() {
+    var r = Math.random();
+    var type = (resetCounter++) % resetLimit;
+    console.log("type: %s", type);
     for (var i = 0; i < width; i++) {
       board[i] = [];
       for (var j = 0; j < height; j++) {
         var p = .5;
-        var p = (width - i) / width + (height - j * 2) / height;
-        p *= Math.random();
+        switch (type) {
+          case 0:
+            p = (width - i) / width + (height - j * 1) / height;
+            p *= Math.random();
+            break;
+          case 1:
+            p = (width - i) / width + (height - j * 1) / height;
+            p *= ((ticks % 100)) / 100;
+            break;
+          case 2:
+            p = (width - i) / width * 2 + (height - j * 1) / (height * 2);
+            break;
+          case 3:
+            p = (width - i) / width;
+            p *= 0.2;
+            break;
+          case 4:
+            p = (height - i) / width;
+            break;
+          case 5:
+            p = (height - j) / height;
+            break;
+          case 6:
+            p = (height - (i + j)) / height;
+            break;
+        }
+        p = Math.abs(p);
         board[i][j] = Math.random() < p ? true : false;
       }
     }
@@ -123,7 +153,7 @@
   };
 
   var ticks = 0;
-  var limit = 300;
+  var limit = 150;
   var fps = 30;
   var msPerFrame = 1000 / fps;
   function update() {
